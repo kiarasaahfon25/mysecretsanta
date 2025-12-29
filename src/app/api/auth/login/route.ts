@@ -24,15 +24,20 @@ export async function POST(req: Request) {
     }
 
     const { email, password } = parsed.data;
-
+     
+    
     // Find user by email
     const user = await User.findOne({ email });
+
+
     if (!user) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }
 
     // Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
+   
+
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }

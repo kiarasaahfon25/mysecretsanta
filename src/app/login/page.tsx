@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import FormInput from "@/components/forms/registrationForm";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   
@@ -15,7 +16,7 @@ export default function LoginPage() {
   const footerText = "mt-4 text-center text-sm text-gray-600";
   const linkStyle = "text-red-900 hover:underline";
 
-  
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,7 +40,7 @@ export default function LoginPage() {
         return;
       }
   
-      // on success should redirect to admin dashboard (will implement after dashboard implementation)
+      router.push("/admin");
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong. Try again.");
