@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "src/app/lib"  ],
+, "src/app/lib", "src/app/api/groups/[groupId]/participants/inviteToken"  ],
   "exclude": ["node_modules"]
 }

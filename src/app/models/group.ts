@@ -8,7 +8,9 @@ export interface Group {
   updatedAt?: Date;
   deadline: Date | null; 
   drawStarted: boolean
-  assignments?: Map<string, string> // store unique participant IDs as strings
+  ownerId: 
+  
+
 }
 
 const GroupSchema = new Schema(
@@ -17,7 +19,11 @@ const GroupSchema = new Schema(
     participants: { type: [ParticipantSchema], required: true },
     deadline: { type: Date, required: false},
     drawStarted: {type: Boolean, required: true, defualt: false},
-    assignments: { type: Map, of: String, default: {} }
+    ownerId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
 
   },
   { timestamps: true }

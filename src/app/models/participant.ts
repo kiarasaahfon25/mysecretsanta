@@ -13,6 +13,11 @@ export const ParticipantSchema = new Schema({
     name: { type: String, required: true },
     wishlist: { type: [String], default: [] }, 
     token: { type: String, required: true },   
+    wishlistSubmitted: {type: Boolean, required: true, defualt: false},
+    assignedTo: { 
+        type: Schema.Types.ObjectId, // stores another participant's _id 
+        ref: "Participant", 
+        default: null, },
   },
   { timestamps: true }
 );

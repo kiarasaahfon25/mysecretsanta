@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Group from "@/models/group";
 
+
 // GET /api/groups
 export async function GET() {
   try {
@@ -54,6 +55,7 @@ export async function POST(req: Request) {
       const group = await Group.create({
         name,
         participants: participantsWithTokens,
+        drawStarted: false 
       });
   
       return NextResponse.json({ group }, { status: 201 });
