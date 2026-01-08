@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import Group from "@/models/group";
-import { requireAdmin } from "@/lib/admin";
 import { connectDB } from "@/lib/db";
 
 export async function GET(

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+/*import { NextRequest, NextResponse } from "next/server";
 import { getUserFromRequest } from "./getUsersFromRequest";
 
 export function requireAdmin(req: NextRequest) {
@@ -18,3 +18,4 @@ export function requireAdmin(req: NextRequest) {
 
   return { user };
 }
+*/

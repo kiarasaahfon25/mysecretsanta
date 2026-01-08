@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import Group from "@/models/group";
-import { requireAdmin } from "@/lib/admin";
 import { connectDB } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 export async function POST(
  req: NextRequest,
   { params }: { params: Promise<{ groupId: string }> }
 ) {
-  const auth = requireAdmin(req);
-  if (auth.error) return auth.error;
-
-  await connectDB();
 
   const group = await Group.findById((await params).groupId);
   if (!group) {

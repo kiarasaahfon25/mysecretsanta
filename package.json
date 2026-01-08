@@ -12,7 +12,8 @@
     "bcrypt": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.20.2",
-    "next": "16.0.7",
+    "next": "^16.1.1",
+    "next-auth": "^4.24.13",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "zod": "^4.1.13"

@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+/*import { NextRequest } from "next/server";
 import { AuthTokenPayload, verifyToken } from "./auth";
 import { JwtPayload } from "jsonwebtoken";
 //make sure that participants do not get access to admin dashboard
@@ -17,4 +17,4 @@ export function getUserFromRequest(req: NextRequest) {
   if (!decoded) return null;
   
   return decoded; // contains userId and role
-}
+}*/

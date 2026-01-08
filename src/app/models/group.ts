@@ -7,10 +7,8 @@ export interface Group {
   createdAt?: Date;
   updatedAt?: Date;
   deadline: Date | null; 
-  drawStarted: boolean
-  ownerId: 
-  
-
+  drawStarted: boolean;
+  ownerId: Schema.Types.ObjectId;
 }
 
 const GroupSchema = new Schema(
@@ -23,6 +21,10 @@ const GroupSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
+      },
+    admins: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
       },
 
   },

@@ -1,13 +1,28 @@
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Group from "@/models/group";
+import { authOptions } from "@/lib/authOptions";
 
 
 // GET /api/groups
 export async function GET() {
   try {
     await connectDB();
-    const groups = await Group.find().sort({ createdAt: -1 });
+    const session = await getServerSession(authOptions);//await session before accessing its properties
+    
+    if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+    
+    const userId = session.user.id;
+    
+    const groups = await Group.find({
+        $or: [
+          { ownerId: userId },
+          { adminIds: userId },
+        ],
+      }).sort({ createdAt: -1 });;
 
     return NextResponse.json({groups});
   } catch (error) {
@@ -22,6 +37,13 @@ export async function GET() {
 export async function POST(req: Request) {
     try {
       await connectDB(); 
+
+      const session = await getServerSession(authOptions);//await session before accessing its properties
+      if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+       }
+       const userId = session.user.id;
+    
     //Debug
     //const body = await req.json();
     // console.log("Received body:", body);
@@ -51,11 +73,12 @@ export async function POST(req: Request) {
         wishlistSubmitted: false,
         token: crypto.randomUUID(), // unique token for participant link
       }));
-  
+
       const group = await Group.create({
         name,
         participants: participantsWithTokens,
-        drawStarted: false 
+        drawStarted: false, 
+        ownerId: userId,
       });
   
       return NextResponse.json({ group }, { status: 201 });
@@ -67,3 +90,4 @@ export async function POST(req: Request) {
       );
     }
   }
+  

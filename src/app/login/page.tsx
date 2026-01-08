@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import FormInput from "@/components/forms/registrationForm";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   
@@ -17,27 +18,24 @@ export default function LoginPage() {
   const linkStyle = "text-red-900 hover:underline";
 
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const res = await signIn("credentialsd", { 
+        email, 
+        password, 
+        redirect: false
+    }); 
   
-      if (!res.ok) {
-        const errorData = await res.json();
-        alert(errorData.message || "Login failed");
-        return;
+      if (!res!.error) {
+        alert("Login failed"); 
+        return; 
       }
   
       router.push("/admin");

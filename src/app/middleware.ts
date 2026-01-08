@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/*import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getUserFromRequest } from "./lib/getUsersFromRequest"; // adjust path
 
@@ -22,3 +22,4 @@ export function middleware(req: NextRequest) {
   // Allow request to continue
   return NextResponse.next();
 }
+*/

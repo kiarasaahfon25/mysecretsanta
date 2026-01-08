@@ -3,16 +3,12 @@ import bcrypt from "bcrypt";
 import { connectDB } from "@/lib/db";
 import {User} from "@/models/user";
 import { signupSchema } from "@/lib/validators";
-import { SESSION_DURATION, signToken } from "@/lib/auth";
 
 // POST /api/auth/signup
 export async function POST(req: Request) {
   try {
     // Connect to MongoDB
     await connectDB();
-
-    
-
     // Parse JSON body
     const body = await req.json();
 
@@ -44,25 +40,18 @@ export async function POST(req: Request) {
       name,
       email,
       password: hashedPassword,
-      role: "admin", // don't think I need this. when you sign up you should be given admin role? 
-    });
-    //Generate JWT
-    const token = signToken({ userId: user._id, role: user.role });
-     
-    // Set HttpOnly cookie
-    const userResponse = NextResponse.json({
-      user: { _id: user._id, name: user.name, email: user.email, role: user.role },
+      role: "admin", 
     });
     
-    userResponse.cookies.set({
-      name: "token",
-      value: token,
-      httpOnly: true,
-      path: "/",
-      maxAge: SESSION_DURATION  // 7 days
-    });
-
-    return userResponse;
+    return NextResponse.json({ 
+      message: "Signup successful", 
+      user: { 
+        _id: user._id, 
+        name: user.name, 
+        email: user.email, 
+        role: user.role,
+      },
+    })
   } catch (error) {
     console.error("Signup error:", error);
     return NextResponse.json(

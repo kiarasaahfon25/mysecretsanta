@@ -42,7 +42,7 @@ export default function SignupPage() {
       }
   
       // if successful, redirect to login page 
-      window.location.href = "/login"; // redirect after signup
+      window.location.href = "/login"; 
     } catch (error) {
       console.error("Signup error:", error);
       alert("Something went wrong. Try again.");
