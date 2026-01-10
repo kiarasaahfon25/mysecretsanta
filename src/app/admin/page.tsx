@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Participant } from "@/models/participant";
+import { signOut } from "next-auth/react";
 
 //Style variables
 
@@ -22,14 +24,33 @@ const groupDateClass = "text-sm text-gray-500";
 interface Group {
   _id: string;
   name: string;
-  participantCount: number;
+  participants: Participant[];
   createdAt: string;
 }
 
 export default function GroupsPage() {
+  /* States */
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
+  /* Handlers */
+  const handleDelete = async (groupId: string) => { 
+    if (!confirm("Are you sure you want to delete this group?")) 
+      return; 
 
+    const res = await fetch(`/api/groups/${groupId}`,{
+      method:  "DELETE", 
+      credentials: "include",
+    });
+
+    if(!res.ok){ 
+      alert("Failed to delete group"); 
+      return; 
+    }
+    // Where prev is previpis state value
+    setGroups((prev) => prev.filter ((g) => g._id !==groupId)); 
+
+  }
+  /* Effects */
   useEffect(() => {
     const fetchGroups = async () => {
       try {
@@ -37,8 +58,10 @@ export default function GroupsPage() {
           credentials: "include",
         });
 
-        if (!res.ok) throw new Error("Failed to fetch groups");
-
+        if (!res.ok){ 
+          console.error("Failed to fetch groups")
+          //return
+        }
         const data = await res.json();
         setGroups(data.groups);
       } catch (error) {
@@ -60,12 +83,21 @@ export default function GroupsPage() {
       {/* Header */}
       <div className={headerClass}>
         <h1 className={titleClass}>Secret Santa Groups</h1>
-
-        <Link href="/admin/groups/" className={newGroupButtonClass}>
-          + New Group
-        </Link>
+       
+        <div className="flex items-center gap-4">
+          <Link href="/admin/groups/" className={newGroupButtonClass}>
+            + New Group
+          </Link>
+          
+          {/* Logout */}
+          <button onClick={() => signOut({ callbackUrl: "/login" })}
+                  className="text-white hover:text-red-800"
+          >
+            Logout
+          </button>
+        </div>
       </div>
-
+      
       {/* Empty state */}
       {groups.length === 0 && (
         <p className={emptyStateClass}>
@@ -76,16 +108,12 @@ export default function GroupsPage() {
       {/* Groups list */}
       <div className={groupListClass}>
         {groups.map((group) => (
-          <Link
-            key={group._id}
-            href={`/admin/groups/${group._id}`}
-            className={groupCardClass}
-          >
+          <div key={group._id} className={groupCardClass}>
             <div className="flex justify-between items-center">
               <div>
                 <h2 className={groupTitleClass}>{group.name}</h2>
                 <p className={groupMetaClass}>
-                  {group.participantCount} participants
+                  {group.participants.length} participants
                 </p>
               </div>
 
@@ -93,7 +121,20 @@ export default function GroupsPage() {
                 {new Date(group.createdAt).toLocaleDateString()}
               </span>
             </div>
-          </Link>
+            
+            {/* Actions */}
+            <div className="flex justify-between items-center mt-4">
+              <Link href={`/admin/groups/${group._id}`} className="text-white hover:underline" >
+                View
+              </Link>
+
+              <button onClick={() => handleDelete(group._id)}
+                className="text-white-600 hover:underline"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         ))}
       </div>
     </div>

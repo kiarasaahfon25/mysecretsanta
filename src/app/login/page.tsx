@@ -11,7 +11,7 @@ export default function LoginPage() {
   const pageContainer = "min-h-screen flex items-center justify-center bg-gray-50 p-4";
   const card = "w-full max-w-md bg-white rounded-xl shadow-md p-8";
   const title = "text-2xl font-bold text-black text-center mb-6";
-  const form = "space-y-4";
+  const form = "space-y-4 text-black";
   const submitButton =
     "w-full py-2 px-4 bg-black text-white rounded-md hover:bg-red-900 transition";
   const footerText = "mt-4 text-center text-sm text-gray-600";
@@ -27,14 +27,14 @@ export default function LoginPage() {
     e.preventDefault();
   
     try {
-      const res = await signIn("credentialsd", { 
+      const res = await signIn("credentials", { 
         email, 
         password, 
         redirect: false
     }); 
   
-      if (!res!.error) {
-        alert("Login failed"); 
+      if (res?.error) {
+        alert("Invalid email or password"); 
         return; 
       }
   

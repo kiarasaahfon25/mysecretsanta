@@ -98,14 +98,12 @@ export default function NewGroupPage() {
         }),
       });
       
-      
-
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || "Failed to create group");
       }
 
-      router.push("/admin/groups");
+      router.push("/admin");
     } catch (err: any) {
       setError(err.message);
     } finally {

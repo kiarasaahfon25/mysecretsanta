@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Group from "@/models/group";
 import { connectDB } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 export async function GET(
   
@@ -30,3 +32,36 @@ export async function GET(
     participants,
   });
 }
+
+// Route to delete specific groups
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ groupId: string }> }
+) {
+  try {
+    await connectDB();
+
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const group = await Group.findById((await params).groupId);
+    
+    if (!group) {
+      return NextResponse.json({ error: "Group not found" }, { status: 404 });
+    }
+
+    await group.deleteOne();
+
+    return NextResponse.json({ message: "Group deleted" }, { status: 200 });
+  } catch (error) {
+    console.error("DELETE /groups error:", error);
+    return NextResponse.json(
+      { error: "Server error deleting group" },
+      { status: 500 }
+    );
+  }
+}
+
+

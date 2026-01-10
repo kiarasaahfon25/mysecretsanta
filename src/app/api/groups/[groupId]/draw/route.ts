@@ -8,7 +8,13 @@ export async function POST(
  req: NextRequest,
   { params }: { params: Promise<{ groupId: string }> }
 ) {
+  await connectDB();
 
+  //Establish connection to avoid unauthorized messages when using POST API 
+  const session = await getServerSession(authOptions);//await session before accessing its properties
+    if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
   const group = await Group.findById((await params).groupId);
   if (!group) {
     return NextResponse.json(

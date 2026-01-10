@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Group from "@/models/group";
 import { authOptions } from "@/lib/authOptions";
@@ -39,6 +39,10 @@ export async function POST(req: Request) {
       await connectDB(); 
 
       const session = await getServerSession(authOptions);//await session before accessing its properties
+
+      //Debug 
+      //console.log("SESSION:", session); 
+
       if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
        }
