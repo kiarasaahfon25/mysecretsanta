@@ -46,7 +46,7 @@ export default function GroupsPage() {
       alert("Failed to delete group"); 
       return; 
     }
-    // Where prev is previpis state value
+    // Where prev is previous state value
     setGroups((prev) => prev.filter ((g) => g._id !==groupId)); 
 
   }
@@ -63,6 +63,9 @@ export default function GroupsPage() {
           //return
         }
         const data = await res.json();
+
+        console.log("GROUPS API RESPONSE:", data); // debug
+
         setGroups(data.groups);
       } catch (error) {
         console.error(error);
