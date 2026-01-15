@@ -11,18 +11,16 @@ import { FiClipboard, FiTrash2 } from "react-icons/fi";
  */
 const container = "max-w-4xl mx-auto p-6";
 const card = "bg-white rounded-xl shadow p-6";
-const title = "text-2xl font-bold mb-6 text-black";
+const title = "text-2xl font-bold mb-6 ";
 
-const row = "flex justify-between items-center border-b py-3 text-black";
-const green = "text-green-600 font-semibold";
-const red = "text-red-600 font-semibold";
+const row = "flex justify-between items-center border-b py-3 ";
+const linkClass = "text-sm text-[#2A2A72] break-all";
+const drawButton =
+  "mt-6 w-full bg-[#2A2A72] text-white py-2 rounded disabled:opacity-50";
 
-const linkClass = "text-sm text-blue-600 break-all";
-const button =
-  "mt-6 w-full bg-black text-white py-2 rounded disabled:opacity-50";
-
-interface Participant{ 
-  _id: string; 
+interface Participant{
+  id: string; 
+  //_id: string; 
   name: string
 }
 
@@ -88,7 +86,7 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
       //Update so it removes participant on the page
       setData((prev: { participants: Participant[]; }) => ({
         ...prev,
-        participants: prev.participants.filter(p => p._id !== participantId)
+        participants: prev.participants.filter(p => p.id !== participantId)
       }));
     }
   
@@ -139,13 +137,13 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Participant name"
-            className="flex-1 rounded-md border text-gray-500 border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 rounded-md border text-gray-500 border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A2A72]"
           />
           
           <button
             onClick={() => addParticipant(newName)}
             disabled={!newName.trim()}
-            className="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 text-sm rounded-md bg-[#2A2A72] text-white hover:bg-[#2A2A72] disabled:opacity-50"
           >
             Add
           </button>
@@ -155,7 +153,7 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
         <div className="space-y-4">
           {data.participants.map((p: any) => (
             <div
-              key={p._id}
+              key={p.id}
               className={`${row} flex items-center justify-between`}
             >
               {/* Left */}
@@ -174,15 +172,15 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
                         p.wishlistSubmitted ? "bg-green-500" : "bg-yellow-400"
                     }`}
                      />
-                    {p.wishlistSubmitted ? "Submitted" : "Pending"}
+                    {p.wishlistSubmitted ? "Submitted" : "In progress"}
                   </span>
 
                   </div>
                   
                   {/* Delete button */}
                   <button
-                    onClick={() => removeParticipant(p._id)}
-                    className=" text-red-500 hover:text-red-600 transition"
+                    onClick={() => removeParticipant(p.id)}
+                    className=" text-[#C62828] hover:text-red-600 transition"
                     aria-label="Delete participant"
                   >
                     Remove
@@ -196,7 +194,7 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
                                 px-3 py-1"
                     >
                       <p 
-                        className={`${linkClass} flex-1 overflow-x-auto whitespace-nowrap text-sm`}
+                        className={`${linkClass} flex-1 overflow-x-auto whitespace-nowrap text-sm `}
                       >
                         {p.inviteUrl}
                       </p>
@@ -206,7 +204,7 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
                       <button
                         onClick={() => {
                           navigator.clipboard.writeText(p.inviteUrl);
-                          setCopied(p._id);
+                          setCopied(p.id);
                           setTimeout(() => setCopied(null), 1500);
                         }}
                         className="hover:opacity-70 transition"
@@ -216,21 +214,20 @@ export default function ParticipantsPage({ params }: { params: Promise<{ groupId
                       </button>
                       {/* Copied text */}
                       <span className="text-xs text-blue-500">
-                        {copied === p._id ? "Copied" : ""}
+                        {copied === p.id ? "Copied" : ""}
                       </span>
                     </div>
                   </div>
                   </div>
                 </div>
-                {/*
-                {/* Delete button */}
+                
             </div>
           ))}
         </div>
   
         <button
           disabled={!allSubmitted}
-          className={`${button} mt-6`}
+          className={`${drawButton} mt-6`}
           onClick={startDraw}
         >
           Start Draw

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/*import { NextResponse } from "next/server";
 
 export async function POST() {
   const userResponse = NextResponse.json({ message: "Logged out successfully" });
@@ -11,3 +11,4 @@ export async function POST() {
   });
   return userResponse;
 }
+*/

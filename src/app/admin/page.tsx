@@ -12,14 +12,15 @@ const headerClass = "flex justify-between items-center mb-6";
 const titleClass = "text-2xl font-bold";
 
 const newGroupButtonClass =
-  "px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800";
+  "px-4 py-2 bg-[#2A2A72] text-white rounded-md hover:bg-gray-800";
 const emptyStateClass = "text-gray-600";
 const groupListClass = "grid gap-4";
 const groupCardClass =
-  "block border rounded-lg p-4 hover:shadow transition";
+  "block border rounded-lg p-4 hover:shadow transition ";
 const groupTitleClass = "text-lg font-semibold";
 const groupMetaClass = "text-sm text-gray-600";
 const groupDateClass = "text-sm text-gray-500";
+const logoutButtonClass = "hover:text-[#2A2A72]"; 
 
 interface Group {
   _id: string;
@@ -94,7 +95,7 @@ export default function GroupsPage() {
           
           {/* Logout */}
           <button onClick={() => signOut({ callbackUrl: "/login" })}
-                  className="text-white hover:text-red-800"
+                  className={logoutButtonClass}
           >
             Logout
           </button>
@@ -114,7 +115,7 @@ export default function GroupsPage() {
           <div key={group._id} className={groupCardClass}>
             <div className="flex justify-between items-center">
               <div>
-                <h2 className={groupTitleClass}>{group.name}</h2>
+                <h2 className={groupTitleClass}>{group.name } 🎁</h2>
                 <p className={groupMetaClass}>
                   {group.participants.length} participants
                 </p>
@@ -127,12 +128,12 @@ export default function GroupsPage() {
             
             {/* Actions */}
             <div className="flex justify-between items-center mt-4">
-              <Link href={`/admin/groups/${group._id}`} className="text-white hover:underline" >
+              <Link href={`/admin/groups/${group._id}`} className=" hover:underline" >
                 View
               </Link>
 
               <button onClick={() => handleDelete(group._id)}
-                className="text-white-600 hover:underline"
+                className="hover:text-[#2A2A72]"
               >
                 Delete
               </button>

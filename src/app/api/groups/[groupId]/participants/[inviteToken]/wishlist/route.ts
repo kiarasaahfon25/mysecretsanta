@@ -78,6 +78,7 @@ export async function GET(
   const participant = group.participants.find(
     (p: any) => p.token === inviteToken
   );
+  console.log("Found participant:", participant);
 
   if (!participant) {
     return NextResponse.json(
@@ -85,7 +86,7 @@ export async function GET(
       { status: 404 }
     );
   }
-
+  console.log("PARTICIPANT Named", participant.name); 
   // BEFORE DRAW
   if (!group.drawStarted) {
     return NextResponse.json({

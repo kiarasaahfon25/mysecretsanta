@@ -5,14 +5,14 @@ import Link from "next/link";
 import FormInput from "@/components/forms/registrationForm";
 
 
-const pageClass = "min-h-screen flex items-center justify-center bg-gray-50 p-4";
+const pageClass = "min-h-screen flex items-center justify-center p-4";
 const cardClass = "w-full max-w-md bg-white rounded-xl shadow-md p-8";
-const titleClass = "text-2xl text-black font-bold text-center mb-6";
-const formClass = "space-y-4 text-black";
+const titleClass = "text-2xl font-bold text-center mb-6";
+const formClass = "space-y-4";
 const buttonClass =
-  "w-full py-2 px-4 bg-black text-white rounded-md hover:bg-red-900 transition";
+  "w-full py-2 px-4 bg-[#2A2A72] text-white rounded-md hover:bg-gray-800 transition";
 const footerTextClass = "mt-4 text-center text-sm text-gray-600";
-const linkClass = "text-red-900 hover:underline";
+const linkClass = "hover:underline font-bold text-[#2A2A72]";
 
 export default function SignupPage() {
   

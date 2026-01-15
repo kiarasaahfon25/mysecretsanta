@@ -13,8 +13,8 @@ export async function GET(
   //if (auth.error) return auth.error;
 
   await connectDB();
-
-  const group = await Group.findById((await params).groupId);
+  const pgroupId = (await params).groupId
+  const group = await Group.findById(pgroupId);
   if (!group) {
     return NextResponse.json({ error: "Group not found" }, { status: 404 });
   }
@@ -23,7 +23,7 @@ export async function GET(
     id: p._id,
     name: p.name,
     wishlistSubmitted: p.wishlistSubmitted,
-    inviteUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/participant/${p.token}`,
+    inviteUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/participant/${pgroupId}/${p.token}/wishlist`,
   }));
 
   return NextResponse.json({

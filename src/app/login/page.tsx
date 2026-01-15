@@ -8,14 +8,15 @@ import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   
-  const pageContainer = "min-h-screen flex items-center justify-center bg-gray-50 p-4";
+  //const pageContainer = "min-h-screen flex items-center justify-center bg-gray-50 p-4";
+  const pageContainer = "min-h-screen flex items-center justify-center p-6";
   const card = "w-full max-w-md bg-white rounded-xl shadow-md p-8";
-  const title = "text-2xl font-bold text-black text-center mb-6";
+  const title = "text-2xl font-bold text-center mb-6";
   const form = "space-y-4 text-black";
   const submitButton =
-    "w-full py-2 px-4 bg-black text-white rounded-md hover:bg-red-900 transition";
+    "w-full py-2 px-4 bg-[#2A2A72] text-white rounded-md hover:bg-gray-800 transition";
   const footerText = "mt-4 text-center text-sm text-gray-600";
-  const linkStyle = "text-red-900 hover:underline";
+  const linkStyle = "hover:underline font-bold text-[#2A2A72]" ;
 
   const router = useRouter();
 
@@ -79,7 +80,7 @@ export default function LoginPage() {
         <p className={footerText}>
           Don’t have an account?{" "}
           <Link href="/signup" className={linkStyle}>
-            Sign up
+            Sign Up
           </Link>
         </p>
       </div>

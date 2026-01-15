@@ -7,9 +7,10 @@ export async function POST(
   { params }: { params: Promise<{ groupId: string }> }
 ) {
   await connectDB();
-
+  
+  const pgroupId = (await params).groupId
   const { name } = await req.json(); // extract name from json 
-  const group = await Group.findById((await params).groupId);
+  const group = await Group.findById(pgroupId);
   const token = crypto.randomUUID();
   
   const newParticipant = {
@@ -31,7 +32,7 @@ export async function POST(
       name: created.name,
       wishlist: created.wishlist,
       wishlistSubmitted: created.wishlistSubmitted,
-      inviteUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/participant/${created.token}`,
+      inviteUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/participant/${pgroupId}/${token}/wishlist`,
   },
 });
 
