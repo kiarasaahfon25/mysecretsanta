@@ -10,24 +10,24 @@ import { useRouter } from "next/navigation";
 const containerClass = "max-w-3xl mx-auto p-6";
 const cardClass = "bg-white rounded-xl shadow-md p-6";
 
-const titleClass = "text-2xl font-bold mb-6 text-black";
+const titleClass = "text-2xl font-bold mb-6";
 
 const formClass = "space-y-6";
 
 const fieldGroupClass = "space-y-2";
 const labelClass = "block text-sm font-medium text-gray-700";
 const inputClass =
-  "w-full border rounded-md text-black px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black";
+  "w-full border rounded-md  px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2A2A72]";
 
 const participantRowClass = "flex gap-2 items-center";
 const removeButtonClass =
   "text-sm text-red-600 hover:underline";
 
 const addButtonClass =
-  "text-sm text-black font-medium hover:underline";
+  "text-sm  font-medium hover:underline";
 
 const submitButtonClass =
-  "w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition";
+  "w-full bg-[#2A2A72] text-white py-2 rounded-md hover:bg-gray-800 transition";
 
 const errorClass = "text-red-600 text-sm";
 
