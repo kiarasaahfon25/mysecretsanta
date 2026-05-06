@@ -1,6 +1,8 @@
 'use client';
 
 import Link from "next/link";
+import Snow from "./components/ui/snow";
+
 
 //styles
 const containerClass = "min-h-screen flex items-center justify-center p-4";
@@ -16,7 +18,7 @@ export default function LandingPage() {
         <h1 className={titleClass}>Welcome to Secret Santa! 🎄 </h1>
         <p className={textClass}>
           Organize fun gift exchanges with friends, family, or colleagues. Add participants, create wishlists, and let the magic happen!
-        </p>
+        </p> 
         <Link href="/signup">
           <button className={buttonClass}>Get Started</button>
         </Link>

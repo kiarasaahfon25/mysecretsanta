@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Snow from "./components/ui/snow";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,11 +25,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
-      >
-        {children}
+      <body className="relative">
+        <Snow />
+        <div style={{ position: "relative", zIndex: 1 }}> 
+          {children}
+        </div>
       </body>
     </html>
   );
 }
+//with z index make sure things like form are not obscured by the snow
+/*
+zIndex 1 →  form / UI
+zIndex 0 → (default content)
+zIndex -1 → snow canvas
+*/
