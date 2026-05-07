@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Participant } from "@/models/participant";
 import { signOut } from "next-auth/react";
+import CountdownCard from "@/components/ui/dashboard/countdowncard";
+import StatsCard from "@/components/ui/dashboard/statscard";
 
 //Style variables
 
@@ -16,7 +18,7 @@ const newGroupButtonClass =
 const emptyStateClass = "text-gray-600";
 const groupListClass = "grid gap-4";
 const groupCardClass =
-  "block border rounded-lg p-4 hover:shadow transition ";
+  "block border-3 rounded-lg p-4 hover:shadow transition bg-white border-[#2A2A72]";
 const groupTitleClass = "text-lg font-semibold";
 const groupMetaClass = "text-sm text-gray-600";
 const groupDateClass = "text-sm text-gray-500";
@@ -33,6 +35,9 @@ export default function GroupsPage() {
   /* States */
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<any>(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+
   /* Handlers */
   const handleDelete = async (groupId: string) => { 
     if (!confirm("Are you sure you want to delete this group?")) 
@@ -75,11 +80,33 @@ export default function GroupsPage() {
       }
     };
 
+    const fetchStats = async () => {
+      try {
+        const res = await fetch("/api/stats", {
+          credentials: "include",
+        });
+  
+        if (!res.ok) {
+          console.error("Failed to fetch stats");
+        }
+  
+        const data = await res.json();
+  
+        setStats(data);
+        setStatsLoading(false);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
     fetchGroups();
+    fetchStats();
   }, []);
 
   if (loading) {
-    return <p className={containerClass}>Loading groups...</p>;
+    return <p className={containerClass}>Loading groups...</p>; //Loading protection
   }
 
   return (
@@ -100,6 +127,15 @@ export default function GroupsPage() {
             Logout
           </button>
         </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+      
+      <CountdownCard />
+      <StatsCard
+        currentYear={stats.currentYear}
+        currentYearStats={stats.currentYearStats}
+        previousYearsStats={stats.previousYearsStats}
+      />
       </div>
       
       {/* Empty state */}
