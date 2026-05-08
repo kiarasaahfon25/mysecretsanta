@@ -39,7 +39,7 @@ export default function CountdownCard() {
   }, []);
 
   return (
-    <div className="relative bg-gradient-to-br from-red-700 via-red-600 to-green-700 rounded-xl shadow-lg p-4 text-white overflow-hidden">
+    <div className="relative bg-emerald-600 rounded-xl shadow-lg p-4 text-white border-emerald-700 overflow-hidden">
       <div className="absolute top-2 left-3 animate-pulse">
         <Snowflake className="w-4 h-4 text-white/30" />
       </div>

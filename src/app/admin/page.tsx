@@ -104,9 +104,12 @@ export default function GroupsPage() {
     fetchGroups();
     fetchStats();
   }, []);
-
+  if (!stats) {
+    return <div>Loading...</div>; // Loadig protection for stats
+  }
+  
   if (loading) {
-    return <p className={containerClass}>Loading groups...</p>; //Loading protection
+    return <p className={containerClass}>Loading groups...</p>; //Loading protection for groups
   }
 
   return (
